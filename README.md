@@ -1,17 +1,23 @@
 # CDAC-Project
 A real-time chat application developed using springboot
 
-### STATUS
-- [X] REST API: CRUD Operations for groups, channels and users
-- [X] JWT for basic routes
-- [X] JWT for remaining routes
-- [X] Real-time chats w/o persistence
-- [X] Real-time chats w/ persistence (1. Directly to DB; 2. ImDB -> DB)
-- [X] Local Object Store impl in isolation (Separately Performed)
-- [X] Local Object Store impl integration (1. MinIO; 2. Cloud S3 {microservice ?} )
-- [X] Local Caching Impl
-- [ ] Frontend 2: using ReactJS
+### BACKEND BUILD INSTRUCTIONS
+docker run -d -p 6379:6379 redis:7
+
+docker run -d -p 9000:9000 -p 9001:9001 -e "MINIO_ROOT_USER=admin" -e "MINIO_ROOT_PASSWORD=password" minio/minio server /data --console-address ":9001" 
+curl -O https://dl.min.io/client/mc/release/linux-amd64/mc 
+chmod +x mc 
+Optional for Local (Avoid for EC2) (sudo mv mc /usr/local/bin/) 
+./mc alias set myminio http://localhost:9000 admin password
+
+docker run -d --name discord-mysql -p 3307:3306 -e "MYSQL_ROOT_PASSWORD=rootpassword" -e "MYSQL_USER=discord" -e "MYSQL_PASSWORD=discord" -e "MYSQL_DATABASE=discord_db" mysql:8
+
+### TODOS
 - [ ] Documentation
+  - [ ] Backend Architecture
+  - [ ] Use Case Diagrams & Sequence Diagram
+- [ ] Reworking the Frontend
+- [ ] Code cleaup on backend
 
 
 
